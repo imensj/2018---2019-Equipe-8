@@ -10,11 +10,11 @@ class Prot:
 
     Parameters
     ----------
-    name : string
+    name: string
         Protein name.
 
-    residues : dictionary of Res instances
-        Residues of the protein. The dictionary must be built as :
+    residues: dictionary of Res instances
+        Residues of the protein. The dictionary must be built as:
 
             residues = {res_num: residue, ...}
                 res_num : integer
@@ -23,13 +23,12 @@ class Prot:
                     Residue data structure.
     """
 
-    def __init__(self, name, residues=dict()):
-
+    def __init__(self: Prot, name: str, residues=dict()) -> None:
         self.name = name
         self.residues = residues
 
     # String conversion
-    def __str__(self):
+    def __str__(self: Prot) -> str:
         """
         Define string conversion.
         Used by print to represent the object.
@@ -37,7 +36,7 @@ class Prot:
         return "{} : {}".format(self.name, self.residues)
 
     # Iterability implementation
-    def __iter__(self):
+    def __iter__(self: Prot):
         """
         Create an iterator.
         Iterate the residues of the protein.
@@ -48,7 +47,7 @@ class Prot:
         return iter([x for i,x in list_res])
 
     # Operator overload
-    def __getitem__(self, key):
+    def __getitem__(self: Prot, key: int) -> Res:
         """
         Overload the '[]' index operator.
         Access to the residue from its res_num.
@@ -64,7 +63,7 @@ class Prot:
                 key = len(self.residues) + key + 1
             return self.residues[key]
 
-    def __setitem__(self, key, items):
+    def __setitem__(self: Prot, key: int, items) -> None:
         """
         Overload of item assignment.
         Set a residues or a list of residues.
@@ -81,5 +80,3 @@ class Prot:
             if key < 0:
                 key = len(self.residues) + key + 1
             self.residues[key] = items
-
-
