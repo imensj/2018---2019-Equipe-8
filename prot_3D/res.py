@@ -4,6 +4,7 @@ Data structure for residues.
 
 from .atom import Atom
 
+
 class Res:
     """
     Data structure for residues.
@@ -39,7 +40,7 @@ class Res:
         Used by print to represent the object.
         """
         return "{} (n°{}) : {}".format(
-                self.res_name, self.res_num, self.atoms)
+            self.res_name, self.res_num, self.atoms)
 
     # Iterability implementation
     def __iter__(self: Res):

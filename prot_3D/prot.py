@@ -4,6 +4,7 @@ Data structure for protein.
 
 from .res import Res
 
+
 class Prot:
     """
     Data structure for proteins.
@@ -51,7 +52,7 @@ class Prot:
         list_res = list(self.residues.items())
         f_sort = (lambda x: x[0])
         list_res.sort(key=f_sort)
-        return iter([x for i,x in list_res])
+        return iter([x for i, x in list_res])
 
     # Operator overload
     def __getitem__(self: Prot, key: int) -> Res:
@@ -79,7 +80,7 @@ class Prot:
             idx = list(range(key.stop))
             if len(idx[key]) != len(items):
                 raise Exception(
-                        'Not the same number of elements on both sides')
+                    'Not the same number of elements on both sides')
             for i, item in zip(idx[key], items):
                 print(i)
                 self.residues[i] = item

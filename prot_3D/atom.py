@@ -5,6 +5,7 @@ Data structure for atoms.
 import numpy as np
 import copy
 
+
 class Atom:
     """
     Data structure for atoms.
@@ -33,7 +34,7 @@ class Atom:
         Used by print to represent the object
         """
         return "{} (n°{}) : {}".format(
-                self.element, self.atom_num, self.coord)
+            self.element, self.atom_num, self.coord)
 
     # Operator overload
     def __add__(self: Atom, other: Atom) -> Atom:
