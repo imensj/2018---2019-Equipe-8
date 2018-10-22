@@ -1,4 +1,4 @@
-# [Meet-U](http://www.meet-u.org/) 2018-2019: Team 8
+# [Meet-U](http://www.meet-u.org/) 2018-2019: Team 8 [![Build Status](https://travis-ci.com/meetU-MasterStudents/2018---2019-Equipe-8.svg?token=r9S39DVzZNKVuhr9yRC6&branch=master)](https://travis-ci.com/meetU-MasterStudents/2018---2019-Equipe-8)
 
 ## Team
 
