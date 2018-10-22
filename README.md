@@ -14,7 +14,7 @@ We use GitHub [Project View](https://github.com/meetU-MasterStudents/2018---2019
 
 ## Roadmap
 
-### [v0.1.0](https://github.com/meetU-MasterStudents/2018---2019-Equipe-8/milestone/2) - Deadline: October 22, 2018
+### [v0.1.0](https://github.com/meetU-MasterStudents/2018---2019-Equipe-8/milestone/2) - Deadline: October 29, 2018
 
 - [ ] Parser PDB
 - [ ] Parser Foldrec
