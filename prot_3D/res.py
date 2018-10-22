@@ -2,7 +2,7 @@
 Data structure for residues.
 """
 
-from atom import Atom
+from .atom import Atom
 
 class Res:
     """
@@ -47,7 +47,7 @@ class Res:
         Create an iterator.
         Iterate the atoms of the residue.
         """
-        return iter(self.atoms.values())
+        return iter(list(self.atoms.values()))
 
     # Operator overload
     def __getitem__(self: Res, key: int) -> Atom:

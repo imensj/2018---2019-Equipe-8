@@ -2,7 +2,7 @@
 Data structure for protein.
 """
 
-from res import *
+from .res import Res
 
 class Prot:
     """
