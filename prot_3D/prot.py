@@ -21,11 +21,18 @@ class Prot:
                     Residue number as described in the PDB file.
                 residue : Res instance
                     Residue data structure.
+
+    align: list or tuple of tuples
+        Alignment of template sequence and query sequence. Must be built as:
+
+            align = [(query_res_nb_1, template_res_nb_2), ...]
+                If a residue does not match, pair it with None.
     """
 
-    def __init__(self: Prot, name: str, residues=dict()) -> None:
+    def __init__(self: Prot, name: str, residues=dict(), align=None) -> None:
         self.name = name
         self.residues = residues
+        self.align = align
 
     # String conversion
     def __str__(self: Prot) -> str:
