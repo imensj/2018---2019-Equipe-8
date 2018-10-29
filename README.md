@@ -18,9 +18,9 @@ We use GitHub [Project View](https://github.com/meetU-MasterStudents/2018---2019
 
 ```shell
 # Install virtualenv package
-sudo pip install virtualenv
+sudo python3 -m pip install virtualenv
 # Create virtual environment
-virtualenv ENV
+python3 -m virtualenv ENV
 # Activate virtual environment
 source ENV/bin/activate
 # Install project dependencies

@@ -3,7 +3,15 @@ python:
   - "3.6"
 # command to install dependencies
 install:
+  # Install virtualenv package
+  - python3 -m pip install virtualenv
+  # Create virtual environment
+  - python3 -m virtualenv ENV
+  # Activate virtual environment
+  - source ENV/bin/activate
+  # Install project dependencies
   - pip install -r requirements.txt
 # command to run tests
 script:
+  # Pyre type check (https://pyre-check.org/)
   - pyre check
