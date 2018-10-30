@@ -33,7 +33,7 @@ class Chain:
                 If a residue does not match, pair it with None.
     """
 
-    def __init__(self: Prot,
+    def __init__(self: Chain,
                  chain_name: str,
                  prot_name: str,
                  residues=dict(),
@@ -44,7 +44,7 @@ class Chain:
         self.align = align
 
     # String conversion
-    def __str__(self: Prot) -> str:
+    def __str__(self: Chain) -> str:
         """
         Define string conversion.
         Used by print to represent the object.
@@ -52,7 +52,7 @@ class Chain:
         return "{} : {}".format(self.name, self.residues)
 
     # Iterability implementation
-    def __iter__(self: Prot):
+    def __iter__(self: Chain):
         """
         Create an iterator.
         Iterate the residues of the protein.
@@ -63,7 +63,7 @@ class Chain:
         return iter([x for i, x in list_res])
 
     # Operator overload
-    def __getitem__(self: Prot, key: int) -> Res:
+    def __getitem__(self: Chain, key: int) -> Res:
         """
         Overload the '[]' index operator.
         Access to the residue from its res_num.
@@ -79,7 +79,7 @@ class Chain:
                 key = len(self.residues) + key + 1
             return self.residues[key]
 
-    def __setitem__(self: Prot, key: int, items) -> None:
+    def __setitem__(self: Chain, key: int, items) -> None:
         """
         Overload of item assignment.
         Set a residues or a list of residues.
