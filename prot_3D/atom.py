@@ -2,7 +2,7 @@
 Data structure for atoms.
 """
 
-import numpy as np
+import numpy as np # pyre-ignore
 import copy
 
 
