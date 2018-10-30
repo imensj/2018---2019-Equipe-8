@@ -5,13 +5,16 @@ Data structure for protein.
 from .res import Res
 
 
-class Prot:
+class Chain:
     """
     Data structure for proteins.
 
     Parameters
     ----------
-    name: string
+    chain_name: string
+        Chain name.
+
+    prot_name: string
         Protein name.
 
     residues: dictionary of Res instances
@@ -30,7 +33,12 @@ class Prot:
                 If a residue does not match, pair it with None.
     """
 
-    def __init__(self: Prot, name: str, residues=dict(), align=None) -> None:
+    def __init__(self: Prot,
+                 chain_name: str,
+                 prot_name: str,
+                 residues=dict(),
+                 align=None
+        ) -> None:
         self.name = name
         self.residues = residues
         self.align = align
