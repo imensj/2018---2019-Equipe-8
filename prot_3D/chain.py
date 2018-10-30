@@ -33,19 +33,15 @@ class Chain:
                 If a residue does not match, pair it with None.
     """
 
-    def __init__(
-            self: 'Chain',
-            chain_name: str,
-            prot_name: str,
-            residues=None,
-            align=None
-            ) -> None:
+    def __init__(self: Chain,
+                 chain_name: str,
+                 prot_name: str,
+                 residues=dict(),
+                 align=None
+        ) -> None:
         self.chain_name = chain_name
         self.prot_name = prot_name
-        if residues is None:
-            self.residues = dict()
-        else:
-            self.residues = residues
+        self.residues = residues
         self.align = align
 
     def reindex(self: 'Chain'):
@@ -78,7 +74,7 @@ class Chain:
         Define string conversion.
         Used by print to represent the object.
         """
-        return "{} : {}".format(self.prot_name, self.residues)
+        return "{} : {}".format(self.chain_name, self.residues)
 
     # Iterability implementation
     def __iter__(self: 'Chain'):
