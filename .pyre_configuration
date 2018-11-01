@@ -1,5 +1,6 @@
 {
   "analysis_directories": [
+    "parsers",
     "prot_3D"
   ],
   "binary": "ENV/bin/pyre.bin"
