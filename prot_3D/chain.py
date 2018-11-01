@@ -3,7 +3,7 @@ Data structure for protein.
 """
 
 from .res import Res
-
+from .convert_aa import three2one
 
 class Chain:
     """
@@ -33,26 +33,55 @@ class Chain:
                 If a residue does not match, pair it with None.
     """
 
-    def __init__(self: Chain,
-                 chain_name: str,
-                 prot_name: str,
-                 residues=dict(),
-                 align=None
-        ) -> None:
-        self.name = name
-        self.residues = residues
+    def __init__(
+            self: 'Chain',
+            chain_name: str,
+            prot_name: str,
+            residues=None,
+            align=None
+            ) -> None:
+        self.chain_name = chain_name
+        self.prot_name = prot_name
+        if residues is None:
+            self.residues = dict()
+        else:
+            self.residues = residues
         self.align = align
 
+    def reindex(self: 'Chain'):
+        """
+        Reindex res numbers to make it start from 1.
+        """
+        res_nums = list(self.residues)
+        min_ = min(res_nums)
+        new_res_nums = [n - min_ + 1 for n in res_nums]
+        new_d = dict()
+        for new_k, k in zip(new_res_nums, resnums):
+            new_d[new_k] = self.residues[k]
+        self.residues = new_d
+
+    def get_seq(self: 'Chain'):
+        """
+        Return chain sequence as a string of 1 letter coded AA.
+        """
+        seq = str()
+        for res in self.residues.values():
+            try:
+                seq += three2one[res.res_name]
+            except KeyError:
+                seq += 'X'
+        return seq
+
     # String conversion
-    def __str__(self: Chain) -> str:
+    def __str__(self: 'Chain') -> str:
         """
         Define string conversion.
         Used by print to represent the object.
         """
-        return "{} : {}".format(self.name, self.residues)
+        return "{} : {}".format(self.prot_name, self.residues)
 
     # Iterability implementation
-    def __iter__(self: Chain):
+    def __iter__(self: 'Chain'):
         """
         Create an iterator.
         Iterate the residues of the protein.
@@ -63,36 +92,49 @@ class Chain:
         return iter([x for i, x in list_res])
 
     # Operator overload
-    def __getitem__(self: Chain, key: int) -> Res:
+    def __getitem__(self: 'Chain', key: int) -> Res:
         """
         Overload the '[]' index operator.
         Access to the residue from its res_num.
         Return a residue or a list of residues.
         Warning ! the index start at 1 (like in the PDB file).
         """
-        if isinstance(key, slice):
-            max_res_num = max(self.residues.keys())
-            idx = list(range(max_res_num + 1))
-            return [self.residues[i] for i in idx[key]]
-        else:
-            if key < 0:
-                key = len(self.residues) + key + 1
-            return self.residues[key]
+        # Broken slice since index can start from negative values
+        # if isinstance(key, slice):
+        #     max_res_num = max(self.residues.keys())
+        #     idx = list(range(max_res_num + 1))
+        #     return [self.residues[i] for i in idx[key]]
+        # else:
+        #     if key < 0:
+        #         key = len(self.residues) + key + 1
+        #     return self.residues[key]
+        return self.residues[key]
 
-    def __setitem__(self: Chain, key: int, items) -> None:
+    def __setitem__(self: 'Chain', key: int, items) -> None:
         """
         Overload of item assignment.
         Set a residues or a list of residues.
         """
-        if isinstance(key, slice):
-            idx = list(range(key.stop))
-            if len(idx[key]) != len(items):
-                raise Exception(
-                    'Not the same number of elements on both sides')
-            for i, item in zip(idx[key], items):
-                print(i)
-                self.residues[i] = item
-        else:
-            if key < 0:
-                key = len(self.residues) + key + 1
-            self.residues[key] = items
+        # Broken slice since index can start from negative values
+        # if type(key) is not int:
+        #     raise Exception('Keys must be integers')
+        # if isinstance(key, slice):
+        #     idx = list(range(key.stop))
+        #     if len(idx[key]) != len(items):
+        #         raise Exception(
+        #             'Not the same number of elements on both sides')
+        #     for i, item in zip(idx[key], items):
+        #         print(i)
+        #         self.residues[i] = item
+        # else:
+        #     if key < 0:
+        #         key = len(self.residues) + key + 1
+        #     self.residues[key] = items
+        self.residues[key] = items
+
+    def __contains__(self: 'Chain', key: int) -> bool:
+        """
+        Overload of 'in' operator.
+        Search if the key is contains in the residues dictionary.
+        """
+        return key in self.residues
