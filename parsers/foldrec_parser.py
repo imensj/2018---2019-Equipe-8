@@ -5,8 +5,21 @@
 import re
 import os
 from pathlib import Path
+from .pdb_tools import pdb_parser
 
 def foldrec_parser(filename):
+    """
+    Parse a foldrec file.
+
+    Parameters
+    ----------
+    filename: string
+        Path to the foldrec file.
+
+    Output
+    ------
+    List of aligned prots.
+    """
     # Read file
     with open(filename, 'r') as f:
         raw = f.readlines()
@@ -39,6 +52,7 @@ def foldrec_parser(filename):
     query_re = r'^Query\s*(\d+)\s*([\w-]*)\s*(\d+)'
     template_re = r'^Template\s*(\d+)\s*([\w-]*)\s*(\d+)'
 
+    print('--> Parsing foldrec file <--')
     # Parse cuts
     data = []
     for i,cut in enumerate(align_cuts):
@@ -84,35 +98,46 @@ def foldrec_parser(filename):
         if d['identity'] == float('nan') or d['query_coverage'] == 0:
             continue
         # Compute alignment structure
+        query_seq_str = ""
+        template_seq_str = ""
         query_start = d['query_start']
         query_th, last_query = 0, 0
         temp_start = d['template_start']
         temp_th, last_temp = 0, 0
         align_struct = []
+        # Iterate over sequences
         for k, (query_aa, temp_aa) in enumerate(zip(d['query_seq'],
                                                     d['template_seq'])):
             temp_n = temp_start + k - temp_th
             query_n = query_start + k - query_th
+            # Check if the AA is aligned
             if query_aa == '-':
                 query_n = None
+                # If the AA is not aligned increment the threshold
                 query_th += 1
-            if query_n is not None:
-                last_query = query_n
+            else:
+                query_seq_str += query_aa
+            # Check if the AA is aligned
             if temp_aa == '-':
                 temp_n = None
+                # If the AA is not aligned increment the threshold
                 temp_th += 1
+            else:
+                template_seq_str += temp_aa
+            # These lines are used to check if there is an error
+            # Can be delete if the script is robust enough
+            if query_n is not None:
+                last_query = query_n
             if temp_n is not None:
                 last_temp = temp_n
-            # print('{}, temp_th {}, query_th {}, {}'.format(
-            #     (query_n, temp_n), temp_th, query_th, (query_aa, temp_aa)))
-            align_struct.append((query_n, temp_n))
-        # print('{}, nb {}'.format(d['template'], i+1))
-        # print(len(d['template_seq']))
-        # print('Computed', (last_query, last_temp))
-        # print('Data', (d['query_end'], d['template_end']))
+            align_struct.append((query_aa, temp_n))
+
         if (last_query, last_temp) != (d['query_end'], d['template_end']):
             raise Exception('Alignment error')
         d['align_struct'] = align_struct
+        d['query_seq_str'] = query_seq_str
+        d['template_seq_str'] = template_seq_str
+
         # Get PDB file path
         dir_path = Path("HOMSTRAD") / d['template']
         try:
@@ -126,32 +151,28 @@ def foldrec_parser(filename):
             print('{} template not found'.format(d['template']))
             pdb_path = 'not_found'
         d['pdb_path'] = pdb_path
+
         # Check if all fields got parsed
         keys = {'query', 'template', 'scop',
                 'score', 'normalized_score', 'query_coverage', 'identity',
                 'query_seq', 'query_start', 'query_end',
                 'template_seq', 'template_start', 'template_end',
+                'query_seq_str', 'template_seq_str',
                 'align_struct', 'pdb_path'
         }
         if set(d.keys()) != keys:
             raise Exception('Data not found in foldrec file')
         else:
-            data.append(d)
+            if d['pdb_path'] != 'not_found':
+                data.append(d)
 
-        # Print data
-        # for key, item in d.items():
-        #     print('{} : {}'.format(key, item))
-    print('len data = {}'.format(len(data)))
-    print('len raw data = {}'.format(len(align_cuts)))
-    temp_nb = 3
-    print(data[temp_nb]['template'])
-    print(data[temp_nb]['pdb_path'])
-    # print(data[temp_nb]['query_start'])
-    # print(data[temp_nb]['align_struct'])
+    # Create prot list
+    prots = list()
+    for d in data:
+        print(' -> Parsing {} pdb file.'.format(d['template']))
+        prot = pdb_parser(d['pdb_path'], prot_name=d['template'])
+        for chain in prot.values():
+            chain.align = d['align_struct']
+        prots.append(prot)
 
-def main():
-    filename = 'outputs_ORION/Agglutinin.foldrec'
-    foldrec_parser(filename)
-
-if __name__ == '__main__':
-    main()
+    return prots

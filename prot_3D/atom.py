@@ -22,13 +22,18 @@ class Atom:
         Atom number in the PDB file.
     """
 
-    def __init__(self: Atom, x: float, y: float, z: float, element: str, atom_num: int) -> None:
+    def __init__(
+            self: 'Atom',
+            x: float, y: float, z: float,
+            element: str,
+            atom_num: int,
+            ) -> None:
         self.coord = np.array([x, y, z])
         self.element = element
         self.atom_num = atom_num
 
     # String conversion
-    def __str__(self: Atom) -> str:
+    def __str__(self: 'Atom') -> str:
         """
         Define string conversion.
         Used by print to represent the object
@@ -37,7 +42,7 @@ class Atom:
             self.element, self.atom_num, self.coord)
 
     # Operator overload
-    def __add__(self: Atom, other: Atom) -> Atom:
+    def __add__(self: 'Atom', other: 'Atom') -> 'Atom':
         """
         Overload of '+' operator.
         """
@@ -54,7 +59,7 @@ class Atom:
         else:
             raise Exception("Addition not implemented for this type")
 
-    def __sub__(self: Atom, other) -> Atom:
+    def __sub__(self: 'Atom', other) -> 'Atom':
         """
         Overload of '-' operator.
         """

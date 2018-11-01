@@ -9,8 +9,8 @@ class Res:
     """
     Data structure for residues.
 
-    Prameters
-    ---------
+    Parameters
+    ----------
     res_num: scalar value
         Residue number as described in the PDB file.
 
@@ -28,13 +28,23 @@ class Res:
                     Atom data structure.
     """
 
-    def __init__(self: Res, res_num: int, res_name: str, atoms=dict()) -> None:
+    def __init__(
+            self: 'Res',
+            res_num: int,
+            res_name: str,
+            curres=None,
+            atoms=None
+            ) -> None:
         self.res_num = res_num
         self.res_name = res_name
-        self.atoms = atoms
+        self.curres = curres
+        if atoms is None:
+            self.atoms = dict()
+        else:
+            self.atoms = atoms
 
     # String conversion
-    def __str__(self: Res) -> str:
+    def __str__(self: 'Res') -> str:
         """
         Define string conversion.
         Used by print to represent the object.
@@ -43,7 +53,7 @@ class Res:
             self.res_name, self.res_num, self.atoms)
 
     # Iterability implementation
-    def __iter__(self: Res):
+    def __iter__(self: 'Res'):
         """
         Create an iterator.
         Iterate the atoms of the residue.
@@ -51,16 +61,24 @@ class Res:
         return iter(list(self.atoms.values()))
 
     # Operator overload
-    def __getitem__(self: Res, key: int) -> Atom:
+    def __getitem__(self: 'Res', key: int) -> Atom:
         """
         Overload the '[]' index operator.
         Access an atom by its atom_name.
         """
         return self.atoms[key]
 
-    def __setitem__(self: Res, key: int, item: Atom) -> None:
+    def __setitem__(self: 'Res', key: int, item: Atom) -> None:
         """
         Overload of item assignment.
         Set an atom.
         """
         self.atoms[key] = item
+
+    def __contains(self: 'Res', key: str) -> bool:
+        """
+        Overload of 'in' operator.
+        Search if the key is contains in the atoms dictionary.
+        """
+        return key in self.atoms
+
