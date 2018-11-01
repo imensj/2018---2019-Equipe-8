@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 import math, string
-from prot_3D.chain import Chain
-from prot_3D.res import Res
-from prot_3D.atom import Atom
+from prot_3D.chain import Chain # pyre-ignore
+from prot_3D.res import Res # pyre-ignore
+from prot_3D.atom import Atom # pyre-ignore
 
 
 ########################################
