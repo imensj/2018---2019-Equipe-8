@@ -1,5 +1,6 @@
 {
   "analysis_directories": [
+    "DOPE_Score",
     "parsers",
     "prot_3D"
   ],
