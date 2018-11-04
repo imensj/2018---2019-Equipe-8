@@ -75,7 +75,7 @@ class Res:
         """
         self.atoms[key] = item
 
-    def __contains(self: 'Res', key: str) -> bool:
+    def __contains__(self: 'Res', key: str) -> bool:
         """
         Overload of 'in' operator.
         Search if the key is contains in the atoms dictionary.
