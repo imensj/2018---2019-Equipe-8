@@ -43,6 +43,8 @@ We use GitHub [Project View](https://github.com/meetU-MasterStudents/2018---2019
 
 2. Run tests
     ```shell
+    # Pytest (https://docs.pytest.org/en/latest/getting-started.html)
+    pytest TEST_*.py
     # Pyre type check (https://pyre-check.org/)
     pyre check
     ```

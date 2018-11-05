@@ -49,6 +49,7 @@ jobs:
           command: |
             . venv/bin/activate
             pyre check
+            pytest TEST_*.py
 
       - store_artifacts:
           path: test-reports
