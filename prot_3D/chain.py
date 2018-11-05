@@ -29,7 +29,7 @@ class Chain:
     align: list or tuple of tuples
         Alignment of template sequence and query sequence. Must be built as:
 
-            align = [(query_res_nb_1, template_res_nb_2), ...]
+            align = [(query_res_1letter_code, template_res_nb_2), ...]
                 If a residue does not match, pair it with None.
     """
 
@@ -55,7 +55,7 @@ class Chain:
         min_ = min(res_nums)
         new_res_nums = [n - min_ + 1 for n in res_nums]
         new_d = dict()
-        for new_k, k in zip(new_res_nums, resnums):
+        for new_k, k in zip(new_res_nums, res_nums):
             new_d[new_k] = self.residues[k]
         self.residues = new_d
 
