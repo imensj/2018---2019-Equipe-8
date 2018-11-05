@@ -109,3 +109,4 @@ venv.bak/
 # Ignore database
 HOMSTRAD/
 outputs_ORION/
+dope.par
