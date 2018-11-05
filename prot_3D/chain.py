@@ -33,12 +33,15 @@ class Chain:
                 If a residue does not match, pair it with None.
     """
 
-    def __init__(self: Chain,
-                 chain_name: str,
-                 prot_name: str,
-                 residues=dict(),
-                 align=None
-        ) -> None:
+    def __init__(
+            self: 'Chain',
+            chain_name: str,
+            prot_name: str,
+            residues=None,
+            align=None
+            ) -> None:
+        if residues is None:
+            residues = dict()
         self.chain_name = chain_name
         self.prot_name = prot_name
         self.residues = residues
