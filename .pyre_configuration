@@ -4,5 +4,5 @@
     "parsers",
     "prot_3D"
   ],
-  "binary": "ENV/bin/pyre.bin"
+  "binary": "venv/bin/pyre.bin"
 }
