@@ -22,7 +22,7 @@ This is because it is necessary to iterate twice on atom_selection list (see DOP
     ==> find a more inteligent way to build the dictionary
 """
 
-from .score_per_chain import DOPE_score  # pyre-ignore
+from .score_per_chain import DOPE_score
 import numpy as np  # pyre-ignore
 import pandas as pd  # pyre-ignore
 
