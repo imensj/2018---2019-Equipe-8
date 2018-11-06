@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd  # pyre-ignore
 
 path = './dope.par'
 dope_mat = pd.read_table(path, header=None, sep=' ')
