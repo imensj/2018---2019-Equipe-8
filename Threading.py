@@ -17,7 +17,7 @@ from DOPE_Score.compute_dope import compute_DOPE_score
 
 
 
-filename = './outputs_ORION/hemery.foldrec'
+filename = '2018---2019-partage/Data/outputs_ORION/hemery.foldrec'
 #prots, seq_borders, ali = foldrec_parser(filename)
 folds = foldrec_parser(filename)
 Threadings = list()
@@ -27,30 +27,30 @@ Templates = list()
 for n, d in enumerate(folds):
     if not "-" in d["query_seq"]:
         Threading = chain.Chain(chain_name = "Q", prot_name = d["query"]+str(n+1))
-        
+
         template_pdb = pdb_parser(infile = d['pdb_path'],
                                   prot_name = d['template'],
                                   CG = False)
-        
-        
+
+
         res_list_query = [convert_aa.one2three[atm] for atm in d['query_seq']]
         res_list_template = [convert_aa.one2three[atm] for atm in d['template_seq'] if atm != "-" ]
         template = chain.Chain(chain_name = chain_template, prot_name= d["template"])
-        
+
         chain_template = list(template_pdb.keys())
         diffs = [abs(len(template_pdb[ch].residues) - len(res_list_template)) for ch in chain_template]
         chain_template = chain_template[diffs.index(min(diffs))]
         if d["template_start"] == list(template_pdb[chain_template].residues.keys())[0]:
-            
+
             for num_query, res in enumerate(res_list_query):
                 corresp_numres = d["align_struct"][num_query][1]
                 if corresp_numres:
                     corresp_numres = corresp_numres - 1 + list(template_pdb[chain_template].residues.keys())[0]
                     corresp_coord = template_pdb[chain_template][corresp_numres]["CA"].coord
-                
+
                 #else:
                     #corresp_coord = [999,999,999]
-        
+
                     new_atm = atom.Atom(x = corresp_coord[0],
                                         y = corresp_coord[1],
                                         z = corresp_coord[2],
@@ -69,15 +69,14 @@ for n, d in enumerate(folds):
 
 
 DOPE_template = compute_DOPE_score(Templates,
-                                   path_to_dope_par = "./Data/dope.par",
+                                   path_to_dope_par = "2018---2019-partage-master/Codes/Params/dope.par",
                                    atom_selection ="CA")
-                                   
+
 DOPE_query = compute_DOPE_score(Threadings,
-                                path_to_dope_par = "./Data/dope.par",
+                                path_to_dope_par = "2018---2019-partage-master/Codes/Params/dope.par",
                                 atom_selection ="CA")
-    
+
 SCORE_final = list()
 for template, query in zip(DOPE_template.values(), DOPE_query.values()):
     SCORE_final.append(template - query)
-    
-    
+

@@ -5,12 +5,12 @@ from parsers.foldrec_parser import *
 from prot_3D.atom import *
 from pathlib import Path
 
-# filename = './HOMSTRAD/cdh/cdh-sup.pdb'
+# filename = '2018---2019-partage/Data/HOMSTRAD/cdh/cdh-sup.pdb'
 # x = pdb_parser(filename)
 # print(x['C'][100]['N'])
 # print(x['I'][500])
 
-# path = Path('./HOMSTRAD')
+# path = Path('2018---2019-partage/Data/HOMSTRAD')
 # dirs = os.listdir(path)
 # for d in dirs:
 #     dir_path = path / d
@@ -26,7 +26,7 @@ from pathlib import Path
 #             x = pdb_parser(pdb_path)
 #             print(x)
 
-# path = Path('./HOMSTRAD')
+# path = Path('2018---2019-partage/Data/HOMSTRAD')
 # dirs = os.listdir(path)
 # for d in {'SET', 'sh3'}:
 #     dir_path = path / d
@@ -44,7 +44,7 @@ from pathlib import Path
 
 # TEST FOLDREC PARSER
 
-filename = './outputs_ORION/hemery.foldrec'
+filename = '2018---2019-partage/Data/outputs_ORION/hemery.foldrec'
 temp_seq, prots = foldrec_parser(filename)
 for seq, prot in zip(temp_seq, prots):
     print('####', prot['A'].prot_name, '####')

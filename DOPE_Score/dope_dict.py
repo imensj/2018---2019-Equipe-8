@@ -1,6 +1,6 @@
 import pandas as pd  # pyre-ignore
 
-path = './dope.par'
+path = '2018---2019-partage-master/Codes/Params/dope.par'
 dope_mat = pd.read_table(path, header=None, sep=' ')
 
 print('-- DOPE DICT LOADING --')

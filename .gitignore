@@ -105,9 +105,3 @@ venv.bak/
 
 # Pyre
 .pyre
-
-# Ignore database
-HOMSTRAD/
-outputs_ORION/
-dope.par
-2018---2019-partage/

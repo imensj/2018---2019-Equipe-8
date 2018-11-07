@@ -14,25 +14,38 @@ We use GitHub [Project View](https://github.com/meetU-MasterStudents/2018---2019
 
 ## Getting Started
 
-### First Setup
+### Prerequisites
 
-```shell
-# Install virtualenv package
-sudo python3 -m pip install virtualenv
-# Create virtual environment
-python3 -m venv venv
-# Activate virtual environment
-source venv/bin/activate
-# Install project dependencies
-pip install -r requirements.txt
-```
+1. Install [Git LFS](https://git-lfs.github.com/) on your computer
 
-### Run Tests
+2. Clone this repository
+    ```shell
+    https://github.com/meetU-MasterStudents/2018---2019-Equipe-8.git
+    ```
 
-```shell
-# Pyre type check (https://pyre-check.org/)
-pyre check
-```
+3. Setup Python [virtual environment](https://virtualenv.pypa.io/en/latest/)
+    ```shell
+    # Install virtualenv package
+    sudo python3 -m pip install virtualenv
+    # Create virtual environment
+    python3 -m venv venv
+    ```
+
+### Running
+
+1. Enter virtual environement and install python dependencies
+    ```shell
+    # Activate virtual environment
+    source venv/bin/activate
+    # Install project dependencies
+    pip install -r requirements.txt
+    ```
+
+2. Run tests
+    ```shell
+    # Pyre type check (https://pyre-check.org/)
+    pyre check
+    ```
 
 ## Technical Roadmap
 

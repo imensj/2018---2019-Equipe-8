@@ -139,7 +139,7 @@ def foldrec_parser(filename):
         d['template_seq_str'] = template_seq_str
 
         # Get PDB file path
-        dir_path = Path("HOMSTRAD") / d['template']
+        dir_path = Path("2018---2019-partage/Data/HOMSTRAD") / d['template']
         try:
             files = os.listdir(dir_path)
             pdb = [f for f in files if '.pdb' in f]
