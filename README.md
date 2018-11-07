@@ -16,25 +16,29 @@ We use GitHub [Project View](https://github.com/meetU-MasterStudents/2018---2019
 
 ### Prerequisites
 
-1. Install [Git LFS](https://git-lfs.github.com/) on your computer
+1. Install [Git LFS](https://git-lfs.github.com/) and [pypy3](https://pypy.org/) on your computer
 
 2. Clone this repository
     ```shell
-    https://github.com/meetU-MasterStudents/2018---2019-Equipe-8.git
+    git clone https://github.com/meetU-MasterStudents/2018---2019-Equipe-8.git ~/meetU-2018-2019-Equipe-8
     ```
 
 3. Setup Python [virtual environment](https://virtualenv.pypa.io/en/latest/)
     ```shell
     # Install virtualenv package
-    sudo python3 -m pip install virtualenv
+    sudo pypy3 -m pip install virtualenv
+    # Go inside the repository
+    cd ~/meetU-2018-2019-Equipe-8
     # Create virtual environment
-    python3 -m venv venv
+    pypy3 -m virtualenv -p $(which pypy3) venv
     ```
 
 ### Running
 
-1. Enter virtual environement and install python dependencies
+1. Enter virtual environment and install python dependencies
     ```shell
+    # Go inside the repository
+    cd ~/meetU-2018-2019-Equipe-8
     # Activate virtual environment
     source venv/bin/activate
     # Install project dependencies
