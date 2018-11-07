@@ -10,7 +10,7 @@ import re
 import numpy as np
 from random import sample
 
-path_HOMSTRAD = "./HOMSTRAD"
+path_HOMSTRAD = "./2018---2019-partage/Data/HOMSTRAD"
 length = len(path_HOMSTRAD)
 last = path_HOMSTRAD[length - 1: length]
 length_split = len(re.split("(?:\\\\|/)", path_HOMSTRAD))
@@ -36,7 +36,7 @@ for path, name in zip(prot_samp, prot_names):
 
 
 final = compute_DOPE_score(threadings=Prots,
-                           path_to_dope_par="./Data/dope.par",
+                           path_to_dope_par="2018---2019-partage-master/Codes/Params/dope.par",
                            atom_selection=["CA", "O"],
                            mean_per_residue=True)
 
