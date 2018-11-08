@@ -50,9 +50,7 @@ def pdb_parser(infile, prot_name='unknown', CG=False) :
                 prot[chain] = Chain(chain_name=chain, prot_name=prot_name)
             curres = line[22:27].strip()
             resnum = int(line[22:26])
-            # print('after th', resnum)
             if not resnum in prot[chain]:
-                # print('asign', resnum)
                 # first time we encounter it
                 prot[chain][resnum] = Res(res_num=resnum,
                                           res_name=line[17:20].strip(),
@@ -78,7 +76,6 @@ def pdb_parser(infile, prot_name='unknown', CG=False) :
             element = atomtype[:1]
 
             if occupancy == alternateoccupancy or occupancy == " ":
-                # print('set', resnum)
                 # means this atom corresponds to the first rotamer found in the PDB for
                 # this residue
                 prot[chain][resnum][atomtype] = Atom(x=float(line[30:38]),
@@ -95,63 +92,32 @@ def pdb_parser(infile, prot_name='unknown', CG=False) :
 #           WRITING TOOLS
 #################################################
 
-# TODO: adapt write functions to data structures
+def pdb_writer(prot, filout="out.pdb") :
+    """
+    Write a PDB file from Chain objects.
 
-# def writePDB(dPDB, filout = "out.pdb", bfactor = False) :
-#     """purpose: according to the coordinates in dPDB, writes the corresponding PDB file.
-#        If bfactor = True, writes also the information corresponding to the key bfactor
-#        of each residue (one key per residue) in dPDB.
-#        input: a dico with the dPDB format
-#        output: PDB file.
-#     """
+    Parameters
+    ----------
+    prot: dict
+        Dictionary of chain built as:
+            {"chain_name": Chain, ...}
 
-#     fout = open(filout, "w")
+    filout: string
+        File path of the future PDB file.
+    """
 
-#     for chain in dPDB["chains"]:
-#         for res in dPDB[chain]["reslist"] :
-#             for atom in dPDB[chain][res]["atomlist"] :
-#                 if bfactor :
-#                     fout.write("ATOM  %5s  %-4s%3s %s%4s    %8.3f%8.3f%8.3f  1.00%7.3f X X\n"%(dPDB[chain][res][atom]["id"], atom, dPDB[chain][res]["resname"],chain, res,dPDB[chain][res][atom]["x"], dPDB[chain][res][atom]["y"],dPDB[chain][res][atom]["z"],dPDB[chain][res]["bfactor"] ))
-#                 else:
-#                     fout.write("ATOM  %5s  %-4s%3s %s%4s    %8.3f%8.3f%8.3f  1.00  1.00 X X\n"%(dPDB[chain][res][atom]["id"], atom, dPDB[chain][res]["resname"],chain, res,dPDB[chain][res][atom]["x"], dPDB[chain][res][atom]["y"],dPDB[chain][res][atom]["z"] ))
+    fout = open(filout, "w")
 
-#     fout.close()
+    for chain_name, chain in prot.items():
+        for res in chain:
+            for atom_name, atom in res.iteratoms():
+                fout.write(
+                    ("ATOM  %5s  %-4s%3s %s%4s    "
+                     "%8.3f%8.3f%8.3f  1.00  1.00 X X\n"
+                     % (atom.atom_num, atom_name, res.res_name,
+                         chain_name, res.res_num,
+                         atom.coord[0], atom.coord[1], atom.coord[2])
+                    )
+                )
 
-
-# def initBfactor(dPDB):
-#     """purpose: initiation of the bfactor key for each residue
-#        input: a dico with the dPDB format
-#     """
-
-#     for chain in dPDB["chains"]:
-#         for res in dPDB[chain]["reslist"]:
-#             dPDB[chain][res]["bfactor"] = 0
-
-
-# def generateFastPDB(x, y, z, res = "GEN", atomname = "X", atomid = 1, resid = 1, chain = " ", bfactor = ""):
-#     """ //// DEBUG FUNCTION ////
-#         purpose: creates a mini dico dPDB for one atom and its 3D coordinates.
-#         The idea is to call after the writePDB(my_mini_dico) in order to visualize
-#         with Pymol the coordinates of the corresponding atom.
-#         input: x, y, z (3D coordinates of the atom we want to visualize)
-#         output: a mini dPDB dico for one atom
-#         usage: my_mini_dico = generateFastPDB(xi, yi, zi)
-
-#     """
-
-#     dPDB = {}
-#     dPDB["chains"] = [chain]
-#     dPDB[chain] = {}
-#     dPDB[chain]["reslist"] = [resid]
-#     dPDB[chain][resid] = {}
-#     dPDB[chain][resid]["atomlist"] = [atomname]
-#     dPDB[chain][resid][atomname] = {}
-#     dPDB[chain][resid][atomname]["id"] = atomid
-#     dPDB[chain][resid]["resname"] = res
-#     dPDB[chain][resid][atomname]["x"] = x
-#     dPDB[chain][resid][atomname]["y"] = y
-#     dPDB[chain][resid][atomname]["z"] = z
-#     if bfactor != "":
-#         dPDB[chain][resid][atomname]["bfactor"] = bfactor
-
-#     return dPDB
+    fout.close()

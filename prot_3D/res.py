@@ -43,6 +43,12 @@ class Res:
         else:
             self.atoms = atoms
 
+    def iteratoms(self: 'Res'):
+        """
+        Iterate on atom names and atoms
+        """
+        return self.atoms.items()
+
     # String conversion
     def __str__(self: 'Res') -> str:
         """
