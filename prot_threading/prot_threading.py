@@ -7,7 +7,7 @@ from prot_3D.res import Res
 from prot_3D.convert_aa import one2three
 from copy import deepcopy
 
-def thread(chain, atoms=('CA',)):
+def prot_thread(chain, atoms=('CA',)):
     """
     Thread query sequence on the template 3D structures.
 
@@ -23,7 +23,7 @@ def thread(chain, atoms=('CA',)):
     ------
     THreaded chain object
     """
-i   # Get alignment
+    # Get alignment
     align = chain.align
     # Remove sequence parts where query is not matching
     align_only_temp = [(q,t) for q,t in align if t is not None]
