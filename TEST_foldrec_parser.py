@@ -46,6 +46,7 @@ from pathlib import Path
 
 filename = '2018---2019-partage/Data/outputs_ORION/hemery.foldrec'
 prots = foldrec_parser(filename)
+temp_seq = [prot['template_seq_str'] for prot in prots]
 for seq, prot in zip(temp_seq, prots):
     print('####', prot['A'].prot_name, '####')
     seq_A = prot['A'].get_seq()
@@ -58,14 +59,14 @@ for seq, prot in zip(temp_seq, prots):
     print('A :', prot['A'].get_seq())
     print('B :', prot['B'].get_seq())
     print('x :', comp)
-for key, chain in prots[-1].items():
-    print(key)
-    seq_A = chain.get_seq()
-    comp = str()
-    for aa, aa_A in zip(seq, seq_A):
-        if aa == aa_A:
-            comp += '-'
-        else:
-            comp += aa
-    print('chain :', seq_A)
-    print('comp :', comp)
+# for key, chain in prots[-1].items():
+#     print(key)
+#     seq_A = chain.get_seq()
+#     comp = str()
+#     for aa, aa_A in zip(seq, seq_A):
+#         if aa == aa_A:
+#             comp += '-'
+#         else:
+#             comp += aa
+#     print('chain :', seq_A)
+#     print('comp :', comp)
