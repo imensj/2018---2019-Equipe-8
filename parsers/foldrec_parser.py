@@ -24,6 +24,14 @@ def foldrec_parser(filename):
     with open(filename, 'r') as f:
         raw = f.readlines()
 
+    # Get Metafold dict
+    metafold_path = Path('./parsers/METAFOLD.list')
+    mf_files = dict()
+    with open(metafold_path, 'r') as f:
+        for line in f.readlines():
+            template, prot_name = line.split()
+            mf_files[template] = prot_name[:-4] + '.atm'
+
     # Get only alignment details
     for i, row in enumerate(raw):
         if re.match('^.*ALIGNMENTS DETAILS', row):
@@ -139,18 +147,14 @@ def foldrec_parser(filename):
         d['template_seq_str'] = template_seq_str
 
         # Get PDB file path
-        dir_path = Path("../2018---2019-partage/Data/HOMSTRAD") / d['template']
+        dir_path = Path("HOMSTRAD") / d['template']
         try:
-            files = os.listdir(str(dir_path))
-            pdb = [f for f in files if '.pdb' in f]
-            if len(pdb) != 1:
-                raise Exception('{} pdb files found'.format(len(pdb)))
-            else:
-                pdb_path = dir_path / pdb[0]
+            files = os.listdir(dir_path)
         except FileNotFoundError:
-            #print('{} template not found'.format(d['template']))
+            print('{} template not found'.format(d['template']))
             pdb_path = 'not_found'
-        d['pdb_path'] = pdb_path
+            continue
+        d['pdb_path'] = dir_path / mf_files[d['template']]
 
         # Check if all fields got parsed
         keys = {'query', 'template', 'scop',
