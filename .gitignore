@@ -107,3 +107,6 @@ venv.bak/
 
 # Pyre
 .pyre
+
+# VS Code
+.vscode
