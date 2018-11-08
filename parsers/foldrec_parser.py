@@ -18,7 +18,8 @@ def foldrec_parser(filename):
 
     Output
     ------
-    List of aligned prots.
+    List of dictionary of chain structures built as :
+        [{"chain_name": Chain, ...}, {"chain_name": Chain, ...}, ...] 
     """
     # Read file
     with open(filename, 'r') as f:
@@ -60,11 +61,12 @@ def foldrec_parser(filename):
     query_re = r'^Query\s*(\d+)\s*([\w-]*)\s*(\d+)'
     template_re = r'^Template\s*(\d+)\s*([\w-]*)\s*(\d+)'
 
-    print('--> Parsing foldrec file <--')
     # Parse cuts
+    print('--> Parsing foldrec file <--')
     data = []
     for i,cut in enumerate(align_cuts):
         d = dict()
+        
         # Get only first query and first template
         first_query = True
         first_template = True
@@ -99,12 +101,15 @@ def foldrec_parser(filename):
                     d['template_start'] = int(mo.group(1))
                     d['template_end'] = int(mo.group(3))
                     first_template = False
+                    
         # Skip alignment with itself
         if d['identity'] == 100 and d['query_coverage'] == 100:
             continue
+            
         # Skip not aligned templates
         if d['identity'] == float('nan') or d['query_coverage'] == 0:
             continue
+            
         # Compute alignment structure
         query_seq_str = ""
         template_seq_str = ""
@@ -147,7 +152,7 @@ def foldrec_parser(filename):
         d['template_seq_str'] = template_seq_str
 
         # Get PDB file path
-        dir_path = Path("HOMSTRAD") / d['template']
+        dir_path = Path("2018---2019-partage/Data/HOMSTRAD") / d['template']
         try:
             files = os.listdir(dir_path)
         except FileNotFoundError:
