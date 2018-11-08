@@ -11,7 +11,7 @@ from parsers.foldrec_parser import foldrec_parser
 from parsers.pdb_tools import pdb_parser
 from prot_3D import *
 from pathlib import Path
-from DOPE_Score.dope_to_dictionary import DOPE_to_dict
+from DOPE_Score.dope_dict import DOPE_to_dict
 from DOPE_Score.score_per_chain import DOPE_score
 from DOPE_Score.compute_dope import compute_DOPE_score
 
@@ -69,11 +69,11 @@ for n, d in enumerate(folds):
 
 
 DOPE_template = compute_DOPE_score(Templates,
-                                   path_to_dope_par = "2018---2019-partage-master/Codes/Params/dope.par",
+                                   #path_to_dope_par = "2018---2019-partage/Codes/Params/dope.par",
                                    atom_selection ="CA")
 
 DOPE_query = compute_DOPE_score(Threadings,
-                                path_to_dope_par = "2018---2019-partage-master/Codes/Params/dope.par",
+                                #path_to_dope_par = "2018---2019-partage/Codes/Params/dope.par",
                                 atom_selection ="CA")
 
 SCORE_final = list()
