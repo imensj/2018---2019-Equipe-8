@@ -17,8 +17,9 @@ Returns a DOPE score for 1 Chain of 1 protein
 import numpy as np  # pyre-ignore
 import itertools
 from math import sqrt
-from .dope_dict import dope_dict
+from .dope_dict import DOPE_to_dict
 
+dope_dict = DOPE_to_dict()
 
 def DOPE_score(chain, atom_selection=None, mean_per_residue=True):
 
@@ -60,5 +61,5 @@ def DOPE_score(chain, atom_selection=None, mean_per_residue=True):
         if len(mean) > 0:
             # if mean empty, creates error when mean_per_residue = True
             SCORE += np.mean(mean) if mean_per_residue else sum(mean)
-    result = {"_".join([Prot_name, Chain_name]): SCORE}
+    result = {"_".join([prot_name, chain_name]): SCORE}
     return result

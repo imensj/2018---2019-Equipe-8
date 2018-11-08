@@ -139,16 +139,16 @@ def foldrec_parser(filename):
         d['template_seq_str'] = template_seq_str
 
         # Get PDB file path
-        dir_path = Path("2018---2019-partage/Data/HOMSTRAD") / d['template']
+        dir_path = Path("../2018---2019-partage/Data/HOMSTRAD") / d['template']
         try:
-            files = os.listdir(dir_path)
+            files = os.listdir(str(dir_path))
             pdb = [f for f in files if '.pdb' in f]
             if len(pdb) != 1:
                 raise Exception('{} pdb files found'.format(len(pdb)))
             else:
                 pdb_path = dir_path / pdb[0]
         except FileNotFoundError:
-            print('{} template not found'.format(d['template']))
+            #print('{} template not found'.format(d['template']))
             pdb_path = 'not_found'
         d['pdb_path'] = pdb_path
 

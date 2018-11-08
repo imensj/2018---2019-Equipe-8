@@ -7,7 +7,7 @@ Function DOPE_to_dict:
 
 # Inputs:
 - Threadings: list of objects of class 'Chain' or single object
-- path_to_dope_par: path to file dope.par (e.g., '2018---2019-partage-master/Codes/Params/dope.par')
+- path_to_dope_par: path to file dope.par (e.g., '2018---2019-partage/Codes/Params/dope.par')
 - dope_dict: output of DOPE_to_dict (see DOPE_Score/dope_to_dictionary.py)
 - atom_selection: list of string(s) of single string to select atoms. If None or False, no selection is made. (default: "CA")
 - mean_per_residue: boolean specifying if for each Residue 2.x, a mean of scores must be computed. Ignored if len(atom_selection) = 1. (default: True)
