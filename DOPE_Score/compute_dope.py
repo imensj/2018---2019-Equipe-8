@@ -27,15 +27,18 @@ import numpy as np  # pyre-ignore
 import pandas as pd  # pyre-ignore
 
 
-def compute_DOPE_score(threadings, atom_selection=("CA"), mean_per_residue=True):
-
-    # Reproduced behaviour when theadings is a list
-    threadings = [threadings] if threadings.__class__ != list else threadings
+def compute_DOPE_score(query, template, atom_selection=("CA",), mean_per_residue=True):
     scores = dict()
-    for thread in threadings:
-        for chain in thread:
-            score_thread = DOPE_score(chain=thread[chain],
-                                      atom_selection=atom_selection,
-                                      mean_per_residue=mean_per_residue)
-            scores.update(score_thread)
+    for chain_name in query:
+        score_query = DOPE_score(
+                chain=query[chain_name],
+                atom_selection=atom_selection,
+                mean_per_residue=mean_per_residue
+        )
+        score_temp = DOPE_score(
+                chain=temp[chain_name],
+                atom_selection=atom_selection,
+                mean_per_residue=mean_per_residue
+        )
+        scores[chain_name] = score_query / score_temp
     return scores
