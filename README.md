@@ -57,17 +57,19 @@ We use GitHub [Project View](https://github.com/meetU-MasterStudents/2018---2019
 
 ### During the project, the following subjects must be explorated
 
-- Scoring methods (DOPE, Rosetta, etc...)
+- Scoring methods (DOPE, Rosetta, co-evolution, etc...)
 - Reranking methods: which ML method is used? Which scores are used? Read the papers of CASP winners might be a good idea
 - Threading improvement: can we introduce the side-chains? Can we insert residues which are not in the model?
+  - Re-weighting scores: Sequence coverage, gaps in query, etc.
+  - ...
 
 ### [v0.1.0](https://github.com/meetU-MasterStudents/2018---2019-Equipe-8/milestone/2) - Deadline: October 22, 2018
 
-- [ ] Parser PDB
-- [ ] Parser Foldrec
+- [x] Parser PDB
+- [x] Parser Foldrec
 - [x] Create data structures for atoms, residues and proteins
 
 ### [v0.2.0](https://github.com/meetU-MasterStudents/2018---2019-Equipe-8/milestone/1) - Deadline: November 09, 2018
 
-- [ ] Threading method
-- [ ] Dope method
+- [x] Threading method
+- [x] Dope method
