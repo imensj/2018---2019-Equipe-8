@@ -1,3 +1,9 @@
 {
-    "python.pythonPath": "venv/bin/python"
+    "python.pythonPath": "venv\\Scripts\\python.exe",
+    "when": "isWindows"
+}
+
+{
+    "python.pythonPath": "venv/bin/python",
+    "when": "!isWindows"
 }
