@@ -41,7 +41,8 @@ def DOPE_score(chain, atom_selection=None, mean_per_residue=True):
         else:
             set_atm1 = set(res[res1].atoms.keys()) & set(atom_selection)
             set_atm2 = set(res[res2].atoms.keys()) & set(atom_selection)
-            # Tupple of all doubletons (Atom x, Atom y) for all (x,y) in (res1.atoms, res2.atom2) such that Atom x and y are in atom_selection
+            # Tupple of all doubletons (Atom x, Atom y) for all (x,y) in
+            # (res1.atoms, res2.atom2) such that Atom x and y are in atom_selection
         atm_combi = itertools.product(set_atm1, set_atm2)
         mean = []
         for atm1, atm2 in atm_combi:
@@ -61,5 +62,4 @@ def DOPE_score(chain, atom_selection=None, mean_per_residue=True):
         if len(mean) > 0:
             # if mean empty, creates error when mean_per_residue = True
             SCORE += np.mean(mean) if mean_per_residue else sum(mean)
-    result = {"_".join([prot_name, chain_name]): SCORE}
-    return result
+    return SCORE
