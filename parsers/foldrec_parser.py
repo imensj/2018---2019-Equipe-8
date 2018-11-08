@@ -19,7 +19,7 @@ def foldrec_parser(filename):
     Output
     ------
     List of dictionary of chain structures built as :
-        [{"chain_name": Chain, ...}, {"chain_name": Chain, ...}, ...] 
+        [{"chain_name": Chain, ...}, {"chain_name": Chain, ...}, ...]
     """
     # Read file
     with open(filename, 'r') as f:
@@ -66,7 +66,7 @@ def foldrec_parser(filename):
     data = []
     for i,cut in enumerate(align_cuts):
         d = dict()
-        
+
         # Get only first query and first template
         first_query = True
         first_template = True
@@ -101,15 +101,15 @@ def foldrec_parser(filename):
                     d['template_start'] = int(mo.group(1))
                     d['template_end'] = int(mo.group(3))
                     first_template = False
-                    
+
         # Skip alignment with itself
         if d['identity'] == 100 and d['query_coverage'] == 100:
             continue
-            
+
         # Skip not aligned templates
         if d['identity'] == float('nan') or d['query_coverage'] == 0:
             continue
-            
+
         # Compute alignment structure
         query_seq_str = ""
         template_seq_str = ""
@@ -125,18 +125,15 @@ def foldrec_parser(filename):
             query_n = query_start + k - query_th
             # Check if the AA is aligned
             if query_aa == '-':
+                query_aa = None
                 query_n = None
                 # If the AA is not aligned increment the threshold
                 query_th += 1
-            else:
-                query_seq_str += query_aa
             # Check if the AA is aligned
             if temp_aa == '-':
                 temp_n = None
                 # If the AA is not aligned increment the threshold
                 temp_th += 1
-            else:
-                template_seq_str += temp_aa
             # These lines are used to check if there is an error
             # Can be delete if the script is robust enough
             if query_n is not None:
@@ -148,8 +145,6 @@ def foldrec_parser(filename):
         if (last_query, last_temp) != (d['query_end'], d['template_end']):
             raise Exception('Alignment error')
         d['align_struct'] = align_struct
-        d['query_seq_str'] = query_seq_str
-        d['template_seq_str'] = template_seq_str
 
         # Get PDB file path
         dir_path = Path("2018---2019-partage/Data/HOMSTRAD") / d['template']
@@ -166,7 +161,6 @@ def foldrec_parser(filename):
                 'score', 'normalized_score', 'query_coverage', 'identity',
                 'query_seq', 'query_start', 'query_end',
                 'template_seq', 'template_start', 'template_end',
-                'query_seq_str', 'template_seq_str',
                 'align_struct', 'pdb_path'
         }
         if set(d.keys()) != keys:
