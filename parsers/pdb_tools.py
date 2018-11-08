@@ -50,10 +50,13 @@ def pdb_parser(infile, prot_name='unknown', CG=False) :
                 prot[chain] = Chain(chain_name=chain, prot_name=prot_name)
             curres = line[22:27].strip()
             resnum = int(line[22:26])
+            resname = line[17:20].strip()
+            if resname == 'MSE':
+                resname = 'MET'
             if not resnum in prot[chain]:
                 # first time we encounter it
                 prot[chain][resnum] = Res(res_num=resnum,
-                                          res_name=line[17:20].strip(),
+                                          res_name=resname,
                                           curres=curres)
                 alternateoccupancy = None
                 occupancy = "%s"%(line[16:17])
@@ -74,7 +77,8 @@ def pdb_parser(infile, prot_name='unknown', CG=False) :
             #     atomtype = line[12:16].strip()
             atomtype = line[12:16].strip()
             element = atomtype[:1]
-
+            if element == 'SE':
+                element = 'SD'
             if occupancy == alternateoccupancy or occupancy == " ":
                 # means this atom corresponds to the first rotamer found in the PDB for
                 # this residue
