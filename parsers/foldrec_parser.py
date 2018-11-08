@@ -62,7 +62,7 @@ def foldrec_parser(filename):
     template_re = r'^Template\s*(\d+)\s*([\w-]*)\s*(\d+)'
 
     # Parse cuts
-    print('--> Parsing foldrec file <--')
+    #print('--> Parsing foldrec file <--')
     data = []
     for i,cut in enumerate(align_cuts):
         d = dict()
@@ -172,7 +172,7 @@ def foldrec_parser(filename):
     # Create prot list
     prots = list()
     for d in data:
-        print(' -> Parsing {} pdb file.'.format(d['template']))
+        #print(' -> Parsing {} pdb file.'.format(d['template']))
         prot = pdb_parser(d['pdb_path'], prot_name=d['template'])
         for chain in prot.values():
             chain.align = d['align_struct']

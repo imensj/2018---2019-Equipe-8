@@ -5,7 +5,7 @@ from prot_threading.prot_threading import prot_thread
 from parsers.pdb_tools import pdb_writer
 from DOPE_Score.compute_dope import compute_DOPE_score
 
-# FOLDREC file 
+# FOLDREC file
 foldrec_path = Path('./2018---2019-partage/Data/outputs_ORION/hemery.foldrec')
 
 # Parse foldrec
@@ -35,4 +35,3 @@ scores.sort(key=f, reverse=True)
 # Get winner
 winner = scores[0][1]
 print('Best template is :', winner.prot_name)
-

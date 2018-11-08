@@ -25,7 +25,7 @@ Query_seq_borders = list()
 Query_cov = list()
 Templates = list()
 for n, d in enumerate(folds):
-    if not "-" in d["query_seq"]:
+    if "query_seq" in d and not "-" in d["query_seq"]:
         Threading = chain.Chain(chain_name = "Q", prot_name = d["query"]+str(n+1))
 
         template_pdb = pdb_parser(infile = d['pdb_path'],

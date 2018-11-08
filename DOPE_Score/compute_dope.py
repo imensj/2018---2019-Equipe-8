@@ -40,5 +40,5 @@ def compute_DOPE_score(query, template, atom_selection=("CA",), mean_per_residue
                 atom_selection=atom_selection,
                 mean_per_residue=mean_per_residue
         )
-        scores[chain_name] = score_query / score_temp
+        scores[chain_name] = score_query / score_temp if score_temp != 0 else -1
     return scores

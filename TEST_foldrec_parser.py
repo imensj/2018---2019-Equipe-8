@@ -46,7 +46,7 @@ from pathlib import Path
 
 filename = '2018---2019-partage/Data/outputs_ORION/hemery.foldrec'
 prots = foldrec_parser(filename)
-temp_seq = [prot['template_seq_str'] for prot in prots]
+temp_seq = [prot['template_seq_str'] for prot in prots if 'template_seq_str' in prot]
 for seq, prot in zip(temp_seq, prots):
     print('####', prot['A'].prot_name, '####')
     seq_A = prot['A'].get_seq()

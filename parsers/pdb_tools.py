@@ -96,7 +96,7 @@ def pdb_parser(infile, prot_name='unknown', CG=False) :
 #           WRITING TOOLS
 #################################################
 
-def pdb_writer(prot, filout="out.pdb") :
+def pdb_writer(prot, out="out.pdb") :
     """
     Write a PDB file from Chain objects.
 
@@ -106,11 +106,11 @@ def pdb_writer(prot, filout="out.pdb") :
         Dictionary of chain built as:
             {"chain_name": Chain, ...}
 
-    filout: string
+    out: string
         File path of the future PDB file.
     """
 
-    fout = open(filout, "w")
+    fout = open(out, "w+")
 
     for chain_name, chain in prot.items():
         for res in chain:
