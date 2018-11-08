@@ -36,7 +36,7 @@ def compute_DOPE_score(query, template, atom_selection=("CA",), mean_per_residue
                 mean_per_residue=mean_per_residue
         )
         score_temp = DOPE_score(
-                chain=temp[chain_name],
+                chain=template[chain_name],
                 atom_selection=atom_selection,
                 mean_per_residue=mean_per_residue
         )
