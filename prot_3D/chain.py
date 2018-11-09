@@ -71,6 +71,9 @@ class Chain:
                 seq += 'X'
         return seq
 
+    def iterres(self: 'Chain'):
+        return self.residues.items()
+
     # String conversion
     def __str__(self: 'Chain') -> str:
         """

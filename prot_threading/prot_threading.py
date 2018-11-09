@@ -27,6 +27,8 @@ def prot_thread(chain, atoms=('CA',)):
     align = chain.align
     # Remove sequence parts where query is not matching
     align_only_temp = [(q,t) for q,t in align if t is not None]
+    if len(align_only_temp) > len(chain.residues):
+        raise AlignmentError
     # Define name
     new_name = 'from_{}'.format(chain.prot_name)
     trunc_name = 'trunc_{}'.format(chain.prot_name)
@@ -34,11 +36,11 @@ def prot_thread(chain, atoms=('CA',)):
     threaded = Chain(chain_name=chain.chain_name, prot_name=new_name)
     trunc_temp = Chain(chain_name=chain.chain_name, prot_name=trunc_name)
     # Iterate on sequence
-    for res, (query_letter, temp_num) in zip(chain, align_only_temp):
+    for (temp_num, res), (query_letter, temp_letter) in zip(chain.iterres(), align_only_temp):
         # Only if template is matching with query
         if query_letter is not None:
             # Create new residues
-            new_res = Res(temp_num, one2three[query_letter])
+            new_res = Res(res.res_num, one2three[query_letter])
             for atom in atoms:
                 new_res[atom] = deepcopy(res[atom])
             threaded[temp_num] = new_res
@@ -46,3 +48,6 @@ def prot_thread(chain, atoms=('CA',)):
             trunc_temp[temp_num] = deepcopy(res)
 
     return threaded, trunc_temp
+
+class AlignmentError(Exception):
+    pass

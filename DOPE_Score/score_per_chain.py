@@ -26,9 +26,10 @@ def DOPE_score(chain, atom_selection=None, mean_per_residue=True):
     chain_name = chain.chain_name
     prot_name = chain.prot_name
     res = chain.residues
-    print("#~#~#~# Computing DOPE score for %s (Chain '%s') #~#~#~#\n" %
-          (prot_name, chain_name))
-    SCORE = 0
+    # print("#~#~#~# Computing DOPE score for %s (Chain '%s') #~#~#~#\n" %
+          # (prot_name, chain_name))
+    # SCORE = 0
+    SCORE = []
     # Tupple of all doubletons (Residue x, Residue y) for all x,y in res_number such that x != y
     res_combi = itertools.combinations(res.keys(), 2)
     for res1, res2 in res_combi:
@@ -57,9 +58,13 @@ def DOPE_score(chain, atom_selection=None, mean_per_residue=True):
             if distance <= 15.0 and distance >= 0.25:
                 pot_idx = round((distance - 0.25)//0.5)
                 mean.append(dope_dict[res_name1][atm1][res_name2][atm2][pot_idx])
+            elif distance < 15.0:
+                mean.append(10)
 
         # i.e. at least 1 distance in [0.25,0.15] because
         if len(mean) > 0:
             # if mean empty, creates error when mean_per_residue = True
-            SCORE += np.mean(mean) if mean_per_residue else sum(mean)
-    return SCORE
+            # SCORE += np.mean(mean) if mean_per_residue else sum(mean)
+            SCORE.append(np.mean(mean) if mean_per_residue else sum(mean))
+
+    return np.mean(SCORE)

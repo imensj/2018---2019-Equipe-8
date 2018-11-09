@@ -131,6 +131,7 @@ def foldrec_parser(filename):
                 query_th += 1
             # Check if the AA is aligned
             if temp_aa == '-':
+                temp_aa = None
                 temp_n = None
                 # If the AA is not aligned increment the threshold
                 temp_th += 1
@@ -140,7 +141,7 @@ def foldrec_parser(filename):
                 last_query = query_n
             if temp_n is not None:
                 last_temp = temp_n
-            align_struct.append((query_aa, temp_n))
+            align_struct.append((query_aa, temp_aa))
 
         if (last_query, last_temp) != (d['query_end'], d['template_end']):
             raise Exception('Alignment error')
@@ -151,7 +152,7 @@ def foldrec_parser(filename):
         try:
             files = os.listdir(dir_path)
         except FileNotFoundError:
-            print('{} template not found'.format(d['template']))
+            # print('{} template not found'.format(d['template']))
             pdb_path = 'not_found'
             continue
         d['pdb_path'] = dir_path / mf_files[d['template']]
@@ -172,7 +173,7 @@ def foldrec_parser(filename):
     # Create prot list
     prots = list()
     for d in data:
-        print(' -> Parsing {} pdb file.'.format(d['template']))
+        # print(' -> Parsing {} pdb file.'.format(d['template']))
         prot = pdb_parser(d['pdb_path'], prot_name=d['template'])
         for chain in prot.values():
             chain.align = d['align_struct']
