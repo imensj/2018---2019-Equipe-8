@@ -6,7 +6,7 @@ from parsers.pdb_tools import pdb_writer
 from DOPE_Score.compute_dope import compute_DOPE_score
 
 # FOLDREC file
-foldrec_path = Path('./2018---2019-partage/Data/outputs_ORION/hemery.foldrec')
+foldrec_path = "2018---2019-partage/Data/outputs_ORION/hemery.foldrec"
 
 # Parse foldrec
 prots = foldrec_parser(foldrec_path)

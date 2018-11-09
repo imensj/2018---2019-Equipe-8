@@ -26,7 +26,7 @@ def foldrec_parser(filename):
         raw = f.readlines()
 
     # Get Metafold dict
-    metafold_path = Path('2018---2019-partage/Data/METAFOLD.list')
+    metafold_path = "2018---2019-partage/Data/METAFOLD.list"
     mf_files = dict()
     with open(metafold_path, 'r') as f:
         for line in f.readlines():
@@ -149,7 +149,7 @@ def foldrec_parser(filename):
         # Get PDB file path
         dir_path = Path("2018---2019-partage/Data/HOMSTRAD") / d['template']
         try:
-            files = os.listdir(dir_path)
+            files = os.listdir(str(dir_path))
         except FileNotFoundError:
             print('{} template not found'.format(d['template']))
             pdb_path = 'not_found'
@@ -173,7 +173,7 @@ def foldrec_parser(filename):
     prots = list()
     for d in data:
         #print(' -> Parsing {} pdb file.'.format(d['template']))
-        prot = pdb_parser(d['pdb_path'], prot_name=d['template'])
+        prot = pdb_parser(str(d['pdb_path']), prot_name=d['template'])
         for chain in prot.values():
             chain.align = d['align_struct']
         prots.append(prot)

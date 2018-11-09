@@ -10,7 +10,7 @@ for prot in prots:
     for chain_name, chain in prot.items():
         query[chain_name], temp[chain_name] = prot_thread(chain)
         prot_name = chain.prot_name
-    path = Path('test_pdb')
+    path = Path('output_PDB')
     query_path = path / "{}-query.pdb".format(prot_name)
     temp_path = path / "{}-temp.pdb".format(prot_name)
     pdb_writer(query, query_path)
