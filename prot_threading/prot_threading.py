@@ -2,9 +2,9 @@
 Tool to thread query sequence on template 3D structure.
 """
 
-from prot_3D.chain import Chain
-from prot_3D.res import Res
-from prot_3D.convert_aa import one2three
+from prot_3D.chain import Chain  # pyre-ignore
+from prot_3D.res import Res  # pyre-ignore
+from prot_3D.convert_aa import one2three  # pyre-ignore
 from copy import deepcopy
 
 def prot_thread(chain, atoms=('CA',)):
