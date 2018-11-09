@@ -35,9 +35,9 @@ for path, name in zip(prot_samp, prot_names):
     Prots.append(pdb_parser(path, prot_name=name))
 
 
-final = compute_DOPE_score(#threadings=Prots,
-                           #path_to_dope_par="2018---2019-partage/Codes/Params/dope.par",
-                           atom_selection=["CA", "O"],
-                           mean_per_residue=True)
+# final = compute_DOPE_score(threadings=Prots,
+#                            path_to_dope_par="2018---2019-partage/Codes/Params/dope.par",
+#                            atom_selection=["CA", "O"],
+#                            mean_per_residue=True)
 
-print(final)
+# print(final)

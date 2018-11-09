@@ -34,4 +34,4 @@ scores.sort(key=f, reverse=True)
 
 # Get winner
 winner = scores[0][1]
-print('Best template is :', winner.prot_name)
+print('Best template is :', winner) # winner.prot_name

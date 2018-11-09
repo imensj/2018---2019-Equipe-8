@@ -62,21 +62,21 @@ for n, d in enumerate(folds):
                     template[corresp_numres] = Res(res_num = corresp_numres,
                                                    res_name = res_list_template[i],
                                                    atoms = {"CA" : template_pdb[chain_template][corresp_numres]["CA"]})
-    Threadings.append({"Q":Threading})
-    Query_seq_borders.append([d['query_start'],d['query_end']])
-    Query_cov.append(d['query_coverage'])
-    Templates.append({chain_template : template})
+        Threadings.append({"Q":Threading})
+        Query_seq_borders.append([d['query_start'],d['query_end']])
+        Query_cov.append(d['query_coverage'])
+        Templates.append({chain_template : template})
 
 
-DOPE_template = compute_DOPE_score(Templates,
-                                   #path_to_dope_par = "2018---2019-partage/Codes/Params/dope.par",
-                                   atom_selection ="CA")
+# DOPE_template = compute_DOPE_score(Templates,
+#                                    path_to_dope_par = "2018---2019-partage/Codes/Params/dope.par",
+#                                    atom_selection ="CA")
 
-DOPE_query = compute_DOPE_score(Threadings,
-                                #path_to_dope_par = "2018---2019-partage/Codes/Params/dope.par",
-                                atom_selection ="CA")
+# DOPE_query = compute_DOPE_score(Threadings,
+#                                 path_to_dope_par = "2018---2019-partage/Codes/Params/dope.par",
+#                                 atom_selection ="CA")
 
-SCORE_final = list()
-for template, query in zip(DOPE_template.values(), DOPE_query.values()):
-    SCORE_final.append(template - query)
+# SCORE_final = list()
+# for template, query in zip(DOPE_template.values(), DOPE_query.values()):
+#     SCORE_final.append(template - query)
 
