@@ -1,6 +1,6 @@
-from prot_3D.atom import Atom
-from prot_3D.res import Res
-from prot_3D.chain import Chain
+from prot_3D.atom import Atom  # pyre-ignore
+from prot_3D.res import Res  # pyre-ignore
+from prot_3D.chain import Chain  # pyre-ignore
 
 # 'reslist' |
 # 'chains'   |
